@@ -1,0 +1,13 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "emptiableboxes"
+version = "${version}"
+displayName = "EmptiableBoxes"
+authors = "Kall"
+description = '''
+'''
+#logoFile = ""
