@@ -3,7 +3,7 @@ package me.kall.emptiableboxes.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Mixin(Screen.class)
 public abstract class ScreenMixin {
-    @Shadow @Final public List<Widget> renderables;
+    @Shadow @Final protected List<GuiEventListener> children;
 
     @Inject(method = "render", at = @At("HEAD"))
     private void clear(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
@@ -27,9 +27,9 @@ public abstract class ScreenMixin {
         boolean stateRightMouse = GLFW.glfwGetMouseButton(window, GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS;
 
         if (stateRightMouse && (stateRightShift || stateLeftShift)) {
-            for (Widget renderable : this.renderables) {
-                if (renderable instanceof EditBox) {
-                    ((EditBox)renderable).setValue("");
+            for (GuiEventListener guiEventListener : this.children) {
+                if (guiEventListener instanceof EditBox) {
+                    ((EditBox)guiEventListener).setValue("");
                 }
             }
         }
