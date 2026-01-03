@@ -1,6 +1,6 @@
 package me.kall.emptiableboxes;
 
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.fml.common.Mod;
 
 @Mod(EmptiableBoxes.MOD_ID)
 public final class EmptiableBoxes {
